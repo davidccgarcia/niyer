@@ -60,4 +60,19 @@ class ProductsModuleTest extends TestCase
             ->assertSeeText($product1->name)
             ->assertSeeText($product2->name);
     }
+
+    /**
+     * @test
+     */
+    public function it_show_a_default_message_when_there_are_not_products()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+        $this->actingAs($user)
+            ->get(route('products'))
+            ->assertStatus(200)
+            ->assertSeeText('Products')
+            ->assertSeeText('No hay productos.');
+    }
 }
