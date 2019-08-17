@@ -14,6 +14,21 @@ class ProductsModuleTest extends TestCase
     /**
      * @test
      */
+    public function it_load_create_product_page()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->get(route('products.create'))
+            ->assertStatus(200)
+            ->assertSeeText('Add Products');
+    }
+
+    /**
+     * @test
+     */
     public function it_create_a_new_product()
     {
         $this->withoutExceptionHandling();
