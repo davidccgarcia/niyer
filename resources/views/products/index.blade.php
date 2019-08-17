@@ -13,7 +13,6 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-
                         @if (! $products->isEmpty())
                             <table class="table table-bordered">
                                 <thead>
@@ -38,7 +37,14 @@
                                 </tbody>
                             </table>
                         @else
-                            <p>No hay productos.</p>
+                            <div class="flexbox">
+                                <div class="box">
+                                    <p>No hay productos.</p>
+                                </div>
+                                <div class="box">
+                                    <a href="{{ route('products.create') }}" class="btn btn-primary">Añadir producto</a>
+                                </div>
+                            </div>
                         @endif
                     </div>
                 </div>
