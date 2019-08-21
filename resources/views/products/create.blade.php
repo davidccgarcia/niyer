@@ -13,7 +13,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('products.store') }}">
+                        <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -28,6 +28,15 @@
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea name="description" class="form-control" placeholder="Contiene ácido cítrico, glicolico y salicilico " id="description" cols="30" rows="5"></textarea>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Photo</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input name="photo" type="file" class="custom-file-input" id="photo">
+                                    <label class="custom-file-label" for="photo">Choose file</label>
+                                </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
