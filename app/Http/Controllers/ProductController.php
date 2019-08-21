@@ -51,14 +51,16 @@ class ProductController extends Controller
         $product = new Product;
         $product->name = $request->name;
         $product->description = $request->description;
-        $product->photo = $request->photo;
         $product->stock = $request->stock;
         $product->wholesale_unit_value = $request->wholesale_unit_value;
         $product->unit_value = $request->unit_value;
-        $product->save();
 
-        Storage::disk('public')
-            ->put('photos', $product->photo);
+        if ($request->hasFile('photo')) {
+            $product->photo = $request->file('photo')
+                ->store('photos', 'public');
+        }
+
+        $product->save();
 
         return redirect()
             ->route('products');
