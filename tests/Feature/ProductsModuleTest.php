@@ -52,13 +52,13 @@ class ProductsModuleTest extends TestCase
             ->assertRedirect(route('products'));
 
         // Assert the file was stored...
-        $path = Storage::disk('public')->assertExists('photos/' . $file->hashName());
+        Storage::disk('public')->assertExists('photos/product1.jpeg');
 
         $this->assertDatabaseHas('products', [
             'name' => 'Product 1',
             'description' => 'lorem ipsum dolor...',
             'stock' => 12,
-            'photo' => 'photos/' . $file->hashName(),
+            'photo' => 'photos/product1.jpeg',
             'wholesale_unit_value' => '24.000',
             'unit_value' => '47.000'
         ]);
