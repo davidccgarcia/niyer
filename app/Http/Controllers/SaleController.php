@@ -24,7 +24,9 @@ class SaleController extends Controller
      */
     public function create()
     {
-        //
+        return view('sales.create', [
+            'products' => Product::orderBy('name', 'ASC')->get()
+        ]);
     }
 
     /**

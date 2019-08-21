@@ -28,5 +28,7 @@ Route::post('products', 'ProductController@store')
 
 Route::get('sales', 'SaleController@index')
     ->name('sales');
+Route::get('sales/create', 'SaleController@create')
+    ->name('sales.create');
 Route::post('sales', 'SaleController@store')
     ->name('sales.store');
