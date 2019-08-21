@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -57,7 +58,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('photo')) {
             $product->photo = $request->file('photo')
-                ->store('photos', 'public');
+                ->storeAs('photos', photo($product),'public');
         }
 
         $product->save();
