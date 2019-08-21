@@ -2,9 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Product;
-use App\User;
 use Tests\TestCase;
+use App\{Product, User};
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProductsModuleTest extends TestCase
@@ -33,17 +34,25 @@ class ProductsModuleTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        Storage::fake('public');
+
+        $file = UploadedFile::fake()->image('avatar.jpg');
+
         $user = factory(User::class)->create();
 
         $this->actingAs($user)
             ->post(route('products.store'), [
                 'name' => 'Product 1',
                 'description' => 'lorem ipsum dolor...',
+                'photo' => $file,
                 'stock' => 12,
                 'wholesale_unit_value' => '24.000',
                 'unit_value' => '47.000'
             ])
             ->assertRedirect(route('products'));
+
+        // Assert the file was stored...
+        Storage::disk('public')->assertExists('photos/' . $file->hashName());
 
         $this->assertDatabaseHas('products', [
             'name' => 'Product 1',
