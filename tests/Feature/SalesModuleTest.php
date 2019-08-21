@@ -13,8 +13,30 @@ class SalesModuleTest extends TestCase
     /**
      * @test
      */
+    public function it_load_create_sale_page()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+        $product1 = factory(Product::class)->create();
+        $product2 = factory(Product::class)->create();
+
+        $this->actingAs($user)
+            ->get(route('sales.create'))
+            ->assertStatus(200)
+            ->assertSeeText('Sale')
+            ->assertViewHas('products', function ($products) use ($product1, $product2) {
+                return $products->contains($product1) && $products->contains($product2);
+            });
+    }
+
+    /**
+     * @test
+     */
     public function it_create_a_new_sale()
     {
+        self::markTestIncomplete();
+
         $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
