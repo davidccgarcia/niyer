@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -50,10 +51,14 @@ class ProductController extends Controller
         $product = new Product;
         $product->name = $request->name;
         $product->description = $request->description;
+        $product->photo = $request->photo;
         $product->stock = $request->stock;
         $product->wholesale_unit_value = $request->wholesale_unit_value;
         $product->unit_value = $request->unit_value;
         $product->save();
+
+        Storage::disk('public')
+            ->put('photos', $product->photo);
 
         return redirect()
             ->route('products');
