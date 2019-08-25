@@ -8,45 +8,51 @@
                     <div class="card-header">Products</div>
                     <div class="card-body">
                         @if (! $products->isEmpty())
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Stock</th>
-                                    <th>Wholesale value</th>
-                                    <th>Price</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($products as $product)
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
                                     <tr>
-                                        <th scope="row">{{ $product->id }}</th>
-                                        <td>{{ $product->name }}</td>
-                                        <td>{{ substr($product->description, 0, 50)  }}...</td>
-                                        <td>{{ $product->stock }}</td>
-                                        <td>$ {{ number_format($product->wholesale_unit_value, 3) }}</td>
-                                        <td>$ {{ number_format($product->price, 3) }}</td>
-                                        <td>
-                                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-warning">
-                                                <i class="fa fa-edit"></i> Edit
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                                                @csrf
-                                                {{ method_field('DELETE') }}
-                                                <button class="btn btn-outline-danger"><i class="fa fa-trash"></i> Delete</button>
-                                            </form>
-                                        </td>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Stock</th>
+                                        <th>Wholesale value</th>
+                                        <th>Price</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($products as $product)
+                                        <tr>
+                                            <th scope="row">{{ $product->id }}</th>
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->stock }}</td>
+                                            <td>$ {{ number_format($product->wholesale_unit_value, 3) }}</td>
+                                            <td>$ {{ number_format($product->price, 3) }}</td>
+                                            <td>
+                                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                                    @csrf
+                                                    {{ method_field('DELETE') }}
+                                                    <button class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-success" href="{{ route('products.show', $product->id) }}">
+                                                    <i class="fa fa-eye"></i> View details
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <p>No hay productos.</p>
                         @endif
