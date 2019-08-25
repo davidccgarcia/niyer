@@ -36,6 +36,13 @@
                                                 <i class="fa fa-edit"></i> Edit
                                             </a>
                                         </td>
+                                        <td>
+                                            <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                                @csrf
+                                                {{ method_field('DELETE') }}
+                                                <button class="btn btn-outline-danger"><i class="fa fa-trash"></i> Delete</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
