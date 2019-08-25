@@ -1,31 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            @foreach($products as $product)
-                <div class="col-sm-3" style="margin-bottom: 30px;">
-                    <img src="{{ asset($product->photo) }}" width="300" height="300" class="card-img-top" alt="{{ asset($product->photo) }}">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $product->name }}</h5>
-                            <p class="card-text">{{ substr($product->description, 0, 80) }}...</p>
-                            <p>
-                                <strong>Price: </strong>
-                                <span>${{ number_format($product->unit_value, 3) }} COP</span>
-                            </p>
-                            <p>
-                                <button type="button" class="btn btn-danger">
-                                    Stock <span class="badge badge-light">{{ $product->stock }}</span>
-                                </button>
-                            </p>
-                            <a href="#" class="btn btn-warning btn-block">
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart
-                            </a>
-                        </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Products</div>
+                    <div class="card-body">
+                        @if (! $products->isEmpty())
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Stock</th>
+                                    <th>Wholesale value</th>
+                                    <th>Price</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($products as $product)
+                                    <tr>
+                                        <th scope="row">{{ $product->id }}</th>
+                                        <td>{{ $product->name }}</td>
+                                        <td>{{ substr($product->description, 0, 50)  }}...</td>
+                                        <td>{{ $product->stock }}</td>
+                                        <td>$ {{ number_format($product->wholesale_unit_value, 3) }}</td>
+                                        <td>$ {{ number_format($product->price, 3) }}</td>
+                                        <td>Acciones</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p>No hay productos.</p>
+                        @endif
                     </div>
-                </div><br><br>
-            @endforeach
+                </div>
+            </div>
         </div>
     </div>
 @endsection
