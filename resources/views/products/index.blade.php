@@ -8,7 +8,7 @@
                     <div class="card-header">Products</div>
                     <div class="card-body">
                         @if (! $products->isEmpty())
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -17,7 +17,9 @@
                                     <th>Stock</th>
                                     <th>Wholesale value</th>
                                     <th>Price</th>
-                                    <th>Acciones</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -29,7 +31,11 @@
                                         <td>{{ $product->stock }}</td>
                                         <td>$ {{ number_format($product->wholesale_unit_value, 3) }}</td>
                                         <td>$ {{ number_format($product->price, 3) }}</td>
-                                        <td>Acciones</td>
+                                        <td>
+                                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-warning">
+                                                <i class="fa fa-edit"></i> Edit
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
