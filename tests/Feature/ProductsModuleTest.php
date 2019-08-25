@@ -155,4 +155,29 @@ class ProductsModuleTest extends TestCase
             'price' => '48.000',
         ]);
     }
+
+    /**
+     * @test
+     */
+    public function it_delete_the_product()
+    {
+        $user = factory(User::class)->create();
+        $product = factory(Product::class)->create();
+
+        $this->actingAs($user)
+            ->delete(route('products.destroy', $product->id))
+            ->assertRedirect(route('products.index'));
+
+        // Delete the last file
+        Storage::disk('public')->delete('photos/wi57oGPEutvquPWRr67c8NlgjLS77BlcEYLqM97v.jpeg');
+
+        $this->assertDatabaseMissing('products', [
+            'name' => $product->name,
+            'description' => $product->description,
+            'photo' => 'photos/wi57oGPEutvquPWRr67c8NlgjLS77BlcEYLqM97v.jpeg',
+            'stock' => $product->stock,
+            'wholesale_unit_value' => $product->whosale_unit_value,
+            'price' => $product->price,
+        ]);
+    }
 }
