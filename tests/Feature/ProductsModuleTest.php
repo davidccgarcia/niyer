@@ -49,7 +49,7 @@ class ProductsModuleTest extends TestCase
                 'wholesale_unit_value' => '24.000',
                 'price' => '47.000'
             ])
-            ->assertRedirect(route('products'));
+            ->assertRedirect(route('products.index'));
 
         // Assert the file was stored...
         Storage::disk('public')->assertExists('photos/product1.jpeg');
@@ -76,7 +76,7 @@ class ProductsModuleTest extends TestCase
         $product2 = factory(Product::class)->create();
 
         $this->actingAs($user)
-            ->get(route('products'))
+            ->get(route('products.index'))
             ->assertStatus(200)
             ->assertSeeText('Products')
             ->assertViewHas('products', function ($products) use ($product1, $product2) {
@@ -95,9 +95,48 @@ class ProductsModuleTest extends TestCase
 
         $user = factory(User::class)->create();
         $this->actingAs($user)
-            ->get(route('products'))
+            ->get(route('products.index'))
             ->assertStatus(200)
             ->assertSeeText('Products')
             ->assertSeeText('No hay productos.');
+    }
+
+    /**
+     * @test
+     */
+    public function it_updates_product()
+    {
+        Storage::fake('public');
+
+        $file = UploadedFile::fake()->image('avatar.jpg');
+
+        $user = factory(User::class)->create();
+        $product = factory(Product::class)->create();
+
+        $this->actingAs($user)
+            ->patch(route('products.update', $product->id), [
+                'name' => 'Producto',
+                'description' => 'Producto editado',
+                'photo' => $file,
+                'stock' => 11,
+                'wholesale_unit_value' => '25.000',
+                'price' => '48.000',
+            ])
+            ->assertStatus(302);
+
+        // Delete the last file
+        Storage::disk('public')->delete($product->photo);
+
+        // Assert the file was stored...
+        Storage::disk('public')->assertExists('photos/producto.jpeg');
+
+        $this->assertDatabaseHas('products', [
+            'name' => 'Producto',
+            'description' => 'Producto editado',
+            'photo' => 'photos/producto.jpeg',
+            'stock' => 11,
+            'wholesale_unit_value' => '25.000',
+            'price' => '48.000',
+        ]);
     }
 }
