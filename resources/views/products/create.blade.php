@@ -44,8 +44,8 @@
                                     <input name="wholesale_unit_value" type="number" class="form-control" id=wholesale_unit_value">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="unit_value">Unit Value</label>
-                                    <input name="unit_value" type="number" class="form-control" id="unit_value">
+                                    <label for="price">Price</label>
+                                    <input name="price" type="number" class="form-control" id="price">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Add Product</button>

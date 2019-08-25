@@ -47,7 +47,7 @@ class ProductsModuleTest extends TestCase
                 'photo' => $file,
                 'stock' => 12,
                 'wholesale_unit_value' => '24.000',
-                'unit_value' => '47.000'
+                'price' => '47.000'
             ])
             ->assertRedirect(route('products'));
 
@@ -60,7 +60,7 @@ class ProductsModuleTest extends TestCase
             'stock' => 12,
             'photo' => 'photos/product1.jpeg',
             'wholesale_unit_value' => '24.000',
-            'unit_value' => '47.000'
+            'price' => '47.000'
         ]);
     }
 

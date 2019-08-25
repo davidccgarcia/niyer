@@ -12,6 +12,6 @@ $factory->define(Product::class, function (Faker $faker) {
         'photo' => 'photos/wi57oGPEutvquPWRr67c8NlgjLS77BlcEYLqM97v.jpeg',
         'stock' => 12,
         'wholesale_unit_value' => '24.000',
-        'unit_value' => '47.000'
+        'price' => '47.000'
     ];
 });

@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('photo');
             $table->unsignedBigInteger('stock');
             $table->decimal('wholesale_unit_value');
-            $table->decimal('unit_value');
+            $table->decimal('price');
 
             $table->timestamps();
         });

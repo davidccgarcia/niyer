@@ -54,7 +54,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->stock = $request->stock;
         $product->wholesale_unit_value = $request->wholesale_unit_value;
-        $product->unit_value = $request->unit_value;
+        $product->price = $request->price;
 
         if ($request->hasFile('photo')) {
             $product->photo = $request->file('photo')
