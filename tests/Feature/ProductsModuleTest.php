@@ -104,6 +104,22 @@ class ProductsModuleTest extends TestCase
     /**
      * @test
      */
+    public function it_load_edit_product_page()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+        $product1 = factory(Product::class)->create();
+
+        $this->actingAs($user)
+            ->get(route('products.edit', $product1->id))
+            ->assertStatus(200)
+            ->assertSeeText('Edit Product');
+    }
+
+    /**
+     * @test
+     */
     public function it_updates_product()
     {
         Storage::fake('public');
