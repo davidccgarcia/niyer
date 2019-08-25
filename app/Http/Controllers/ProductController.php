@@ -64,7 +64,7 @@ class ProductController extends Controller
         $product->save();
 
         return redirect()
-            ->route('products');
+            ->route('products.index');
     }
 
     /**
@@ -96,9 +96,26 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $product->name = $request->name;
+
+        if ($request->hasFile('photo')) {
+            Storage::disk('public')->delete($product->photo);
+
+            $product->photo = $request->file('photo')
+                ->storeAs('photos', photo($product),'public');
+        }
+
+        $product->description = $request->description;
+        $product->stock = $request->stock;
+        $product->wholesale_unit_value = $request->wholesale_unit_value;
+        $product->price = $request->price;
+
+        $product->save();
+
+        return redirect()
+            ->route('products.index');
     }
 
     /**

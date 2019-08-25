@@ -27,7 +27,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea name="description" class="form-control" placeholder="Contiene ácido cítrico, glicolico y salicilico " id="description" cols="30" rows="5"></textarea>
+                                <textarea name="description" class="form-control" placeholder="Describe your product" id="description" cols="30" rows="5"></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
