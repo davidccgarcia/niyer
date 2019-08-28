@@ -53,9 +53,9 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <button type="button" class="btn btn-info text-white" data-toggle="dropdown">
+                                <a href="{{ route('cart.index') }}" class="btn btn-info text-white">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">3</span>
-                                </button>
+                                </a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
