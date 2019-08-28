@@ -55,6 +55,7 @@ class ProductsModuleTest extends TestCase
         Storage::disk('public')->assertExists('photos/product1.jpeg');
 
         $this->assertDatabaseHas('products', [
+            'user_id' => $user->id,
             'name' => 'Product 1',
             'description' => 'lorem ipsum dolor...',
             'stock' => 12,
@@ -72,8 +73,8 @@ class ProductsModuleTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
-        $product1 = factory(Product::class)->create();
-        $product2 = factory(Product::class)->create();
+        $product1 = factory(Product::class)->create(['user_id' => $user->id]);
+        $product2 = factory(Product::class)->create(['user_id' => $user->id]);
 
         $this->actingAs($user)
             ->get(route('products.index'))
@@ -109,7 +110,7 @@ class ProductsModuleTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
-        $product1 = factory(Product::class)->create();
+        $product1 = factory(Product::class)->create(['user_id' => $user->id]);
 
         $this->actingAs($user)
             ->get(route('products.show', $product1->id))
@@ -125,7 +126,7 @@ class ProductsModuleTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
-        $product1 = factory(Product::class)->create();
+        $product1 = factory(Product::class)->create(['user_id' => $user->id]);
 
         $this->actingAs($user)
             ->get(route('products.edit', $product1->id))
@@ -143,7 +144,7 @@ class ProductsModuleTest extends TestCase
         $file = UploadedFile::fake()->image('avatar.jpg');
 
         $user = factory(User::class)->create();
-        $product = factory(Product::class)->create();
+        $product = factory(Product::class)->create(['user_id' => $user->id]);
 
         $this->actingAs($user)
             ->patch(route('products.update', $product->id), [
@@ -178,7 +179,7 @@ class ProductsModuleTest extends TestCase
     public function it_delete_the_product()
     {
         $user = factory(User::class)->create();
-        $product = factory(Product::class)->create();
+        $product = factory(Product::class)->create(['user_id' => $user->id]);
 
         $this->actingAs($user)
             ->delete(route('products.destroy', $product->id))
