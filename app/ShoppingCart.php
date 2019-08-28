@@ -23,6 +23,38 @@ class ShoppingCart extends Model
     }
 
     /**
+     * Get products count into shopping cart.
+     */
+    public function productsCount()
+    {
+        return $this->products()->count();
+    }
+
+    /**
+     * Get the subtotal of the shopping cart.
+     */
+    public function subtotal()
+    {
+        return number_format($this->products()->sum('price'), 3);
+    }
+
+    /**
+     * Get shipping price.
+     */
+    public function shipping()
+    {
+        return number_format(5.00, 3);
+    }
+
+    /**
+     * Get total of the shopping cart.
+     */
+    public function total()
+    {
+        return number_format($this->subtotal() + $this->shipping(), 3);
+    }
+
+    /**
      * Find or create shopping cart.
      *
      * @param  int  $sessionID
