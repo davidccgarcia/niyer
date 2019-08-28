@@ -18,7 +18,6 @@
                                     {{ $product->description }}
                                 </p>
                             </div>
-
                         </div>
                         <hr>
                     @endforeach
@@ -44,6 +43,19 @@
                             </a>
                         </li>
                     </ul>
+                </div>
+            </div>
+        @else
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="text-center text-danger"><i class="fa fa-shopping-cart"></i></h1>
+                        <h2 class="text-center text-success m-4 p-4">You have no items in your cart</h2>
+
+                        <p class="text-center">
+                            <a href="/" class="btn btn-success btn-block">Buy now</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         @endif
