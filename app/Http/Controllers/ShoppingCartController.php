@@ -14,17 +14,12 @@ class ShoppingCartController extends Controller
      */
     public function index()
     {
-        $sessionID = session()->get('shopping_cart');
-        $shoppingCart = ShoppingCart::findOrCreate($sessionID);
-        session()->put('shopping_cart', $shoppingCart->id);
-
         $products = Product::whereHas('shoppingCarts', function ($query) {
             $query->where('shopping_cart_id', session()->get('shopping_cart'));
         })->get();
 
         return view('shopping_carts.index', [
             'products' => $products,
-            'shoppingCart' => $shoppingCart,
         ]);
     }
 
