@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\{Product, ShoppingCart};
-use Illuminate\Database\Eloquent\Builder;
 
 class ShoppingCartController extends Controller
 {
@@ -19,8 +18,8 @@ class ShoppingCartController extends Controller
         $shoppingCart = ShoppingCart::findOrCreate($sessionID);
         session()->put('shopping_cart', $shoppingCart->id);
 
-        $products = Product::whereHas('shoppingCarts', function (Builder $query) {
-            $query->where('shopping_cart_id', session('shopping_cart_id'));
+        $products = Product::whereHas('shoppingCarts', function ($query) {
+            $query->where('shopping_cart_id', session()->get('shopping_cart'));
         })->get();
 
         return view('shopping_carts.index', [
