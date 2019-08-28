@@ -14,6 +14,31 @@ class ShoppingCartsModuleTest extends TestCase
     /**
      * @test
      */
+    public function it_load_cart_page()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+        $product1 = factory(Product::class)->create(['user_id' => $user->id]);
+        $product2 = factory(Product::class)->create(['user_id' => $user->id]);
+
+        $shoppingCart = ShoppingCart::create(['status' => 'uncompleted']);
+        $shoppingCart->products()->attach([
+            $product1->id, $product2->id
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('cart.index'))
+            ->assertViewIs('shopping_carts.index')
+            ->assertStatus(200)
+            ->assertSeeText($shoppingCart->status)
+            ->assertSeeText($product1->name)
+            ->assertSeeText($product2->name);
+    }
+
+    /**
+     * @test
+     */
     public function it_find_or_create_shopping_carts()
     {
         $this->withoutExceptionHandling();
@@ -22,7 +47,7 @@ class ShoppingCartsModuleTest extends TestCase
         $product = factory(Product::class)->create(['user_id' => $user->id]);
 
         $this->actingAs($user)
-            ->post(route('shopping_carts.store'), [
+            ->post(route('cart.store'), [
                 'product_id' => $product->id,
             ])
             ->assertRedirect(route('products.show', $product->id));
