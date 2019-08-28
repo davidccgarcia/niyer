@@ -22,7 +22,10 @@ class ShoppingCartsModuleTest extends TestCase
         $product1 = factory(Product::class)->create(['user_id' => $user->id]);
         $product2 = factory(Product::class)->create(['user_id' => $user->id]);
 
-        $shoppingCart = ShoppingCart::create(['status' => 'uncompleted']);
+        $sessionID = session()->get('shopping_cart');
+        $shoppingCart = ShoppingCart::findOrCreate($sessionID);
+        session()->put('shopping_cart', $shoppingCart->id);
+
         $shoppingCart->products()->attach([
             $product1->id, $product2->id
         ]);
@@ -31,9 +34,21 @@ class ShoppingCartsModuleTest extends TestCase
             ->get(route('cart.index'))
             ->assertViewIs('shopping_carts.index')
             ->assertStatus(200)
-            ->assertSeeText($shoppingCart->status)
             ->assertSeeText($product1->name)
             ->assertSeeText($product2->name);
+    }
+
+    /**
+     * @test
+     */
+    public function show_default_message_if_shopping_cart_is_empty()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->get(route('cart.index'))
+            ->assertStatus(200)
+            ->assertSeeText('You have no items in your cart');
     }
 
     /**
