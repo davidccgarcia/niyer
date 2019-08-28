@@ -54,7 +54,8 @@
                         @else
                             <li class="nav-item">
                                 <a href="{{ route('cart.index') }}" class="btn btn-info text-white">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">3</span>
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart
+                                    <span class="badge badge-pill badge-danger">{{ $shoppingCart->productsCount() }}</span>
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
