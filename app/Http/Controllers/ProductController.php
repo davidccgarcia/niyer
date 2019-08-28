@@ -50,6 +50,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = new Product;
+        $product->user_id = auth()->user()->id;
         $product->name = $request->name;
         $product->description = $request->description;
         $product->stock = $request->stock;
