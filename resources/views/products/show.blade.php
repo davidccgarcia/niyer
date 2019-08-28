@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-4 col-xs-12">
                 <p class="lead"><strong>Price: </strong>$ {{ number_format($product->price, 3) }}</p>
-                <form action="{{ route('shopping_carts.store') }}" method="POST">
+                <form action="{{ route('cart.store') }}" method="POST">
                     @csrf
                     <input name="product_id" type="hidden" value="{{ $product->id }}">
                     <button type="submit" class="btn btn-success text-white btn-block">
@@ -22,7 +22,6 @@
                     </button>
                 </form>
             </div>
-
         </div>
     </div>
 @endsection
