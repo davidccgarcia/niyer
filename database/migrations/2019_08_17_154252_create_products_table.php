@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->decimal('wholesale_unit_value');
             $table->decimal('price');
 
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -14,9 +14,13 @@
             </div>
             <div class="col-md-4 col-xs-12">
                 <p class="lead"><strong>Price: </strong>$ {{ number_format($product->price, 3) }}</p>
-                <a class="btn btn-success text-white btn-block">
-                    <i class="fa fa-shopping-cart"></i> Add to cart
-                </a>
+                <form action="{{ route('shopping_carts.store') }}" method="POST">
+                    @csrf
+                    <input name="product_id" type="hidden" value="{{ $product->id }}">
+                    <button type="submit" class="btn btn-success text-white btn-block">
+                        <i class="fa fa-shopping-cart"></i> Add to cart
+                    </button>
+                </form>
             </div>
 
         </div>

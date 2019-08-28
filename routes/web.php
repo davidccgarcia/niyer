@@ -20,17 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('products', 'ProductController');
-
-// Route::get('products', 'ProductController@index')
-//     ->name('products');
-// Route::get('products/create', 'ProductController@create')
-//     ->name('products.create');
-// Route::post('products', 'ProductController@store')
-//     ->name('products.store');
-
-Route::get('sales', 'SaleController@index')
-    ->name('sales');
-Route::get('sales/create', 'SaleController@create')
-    ->name('sales.create');
-Route::post('sales', 'SaleController@store')
-    ->name('sales.store');
+Route::resource('shopping_carts', 'ShoppingCartController')->only([
+    'store'
+]);
