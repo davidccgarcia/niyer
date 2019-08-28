@@ -5,8 +5,18 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Products</div>
+                    <div class="card-header">Dashboard</div>
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12"><h3>Products</h3></div>
+                            <div class="col-md-6 col-xs-12 text-right">
+                                <a href="{{ route('products.create') }}" class="btn btn-primary">
+                                    <i class="fa fa-plus"></i> Add product
+                                </a>
+                            </div>
+                        </div>
+
+                        <hr>
                         @if (! $products->isEmpty())
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -14,7 +24,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Description</th>
                                         <th>Stock</th>
                                         <th>Wholesale value</th>
                                         <th>Price</th>
