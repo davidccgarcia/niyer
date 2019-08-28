@@ -20,6 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('products', 'ProductController');
-Route::resource('shopping_carts', 'ShoppingCartController')->only([
-    'store'
+Route::resource('cart', 'ShoppingCartController')->only([
+    'store', 'index'
 ]);
