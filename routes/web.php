@@ -23,3 +23,6 @@ Route::resource('products', 'ProductController');
 Route::resource('cart', 'ShoppingCartController')->only([
     'store', 'index'
 ]);
+Route::resource('orders', 'OrderController')->only([
+    'store', 'show'
+]);
