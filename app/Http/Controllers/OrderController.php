@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\{Order, ShoppingCart};
 
@@ -16,6 +15,16 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('orders.create');
     }
 
     /**
@@ -39,7 +48,7 @@ class OrderController extends Controller
         $order->save();
 
         return redirect()
-            ->route('orders.show', 1);
+            ->route('orders.show', ['order' => $order]);
     }
 
     /**
@@ -48,8 +57,8 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Order $order)
     {
-        return view('orders.show');
+        return view('orders.show', ['order' => $order]);
     }
 }
