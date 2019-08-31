@@ -13,6 +13,19 @@ class OrdersModuleTest extends TestCase
     /**
      * @test
      */
+    public function it_load_create_order_page()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->get(route('orders.create'))
+            ->assertStatus(200)
+            ->assertSeeText('Create Order');
+    }
+
+    /**
+     * @test
+     */
     public function it_create_order_if_exists_shopping_cart()
     {
         $this->withoutExceptionHandling();
