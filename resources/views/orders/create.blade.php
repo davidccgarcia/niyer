@@ -5,39 +5,34 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Sale</div>
-
+                    <div class="card-header">Create Order</div>
                     <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                        <form method="POST" action="{{ route('sales.store') }}">
-                            {{ csrf_field() }}
-
-                            <h5>Productos</h5>
-
-                            @foreach ($products as $product)
-                                <div class="form-check form-check-inline">
-                                    <input name="products[{{ $product->id }}]"
-                                           class="form-check-input"
-                                           type="checkbox" id="product_{{ $product->id }}"
-                                           value="{{ $product->id }}"
-                                        {{ old("products.{$product->id}") ? 'checked' : ''}}
-                                    >
-                                    <label class="form-check-label" for="product_{{ $product->id }}">{{ $product->name }}</label>
+                        <form method="POST" action="{{ route('orders.store') }}">
+                            @csrf
+                            <input name="shopping_cart_id" type="hidden" value="{{ $shoppingCart->id }}">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="receiver_name">Receiver Name</label>
+                                    <input name="receiver_name" type="text" class="form-control" id="receiver_name" placeholder="Receiver Name">
                                 </div>
-                                <div class="form-group col-md-3">
-                                    <label for="quantity_{{ $product->id }}">Quantity</label>
-                                    <input type="number" class="form-control" name="quantity_{{ $product->id }}" id="quantity_{{ $product->id }}" value="{{ old('quantity') }}">
+                                <div class="form-group col-md-6">
+                                    <label for="email">Email</label>
+                                    <input name="email" type="email" class="form-control" id="email" placeholder="Email">
                                 </div>
-                            @endforeach
-                            <div class="form-group">
-                                <label for="observation">Observation</label>
-                                <textarea name="observation" class="form-control" placeholder="Coloque aqui una observación si es necesario..." id="observation" cols="30" rows="5"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Sale</button>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="address">Address</label>
+                                    <input name="address" type="text" class="form-control" id="address" placeholder="1234 Main St">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="city">City</label>
+                                    <input name="city" type="text" class="form-control" id="city" placeholder="Santiago de Cali">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-shopping-bag"></i> Process purchase
+                            </button>
                         </form>
                     </div>
 
