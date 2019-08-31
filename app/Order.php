@@ -14,4 +14,12 @@ class Order extends Model
     {
         return (string) Str::uuid();
     }
+
+    /**
+     * Get the total of the order.
+     */
+    public function total()
+    {
+        return number_format($this->total, 3);
+    }
 }
