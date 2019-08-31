@@ -38,7 +38,7 @@
                         <li class="list-group-item">
                             <h5 class="d-inline-block">Total:</h5> <strong class="text-right">$ {{ $shoppingCart->total() }} COP</strong>
 
-                            <a href="#" class="btn btn-success btn-block">
+                            <a href="{{ route('orders.create') }}" class="btn btn-success btn-block">
                                 <i class="fa fa-shopping-bag"></i> Process purchase
                             </a>
                         </li>
