@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\ShoppingCart;
+use App\{Order, ShoppingCart};
 use Illuminate\Support\ServiceProvider;
 
 class ShoppingCartProvider extends ServiceProvider
@@ -29,7 +29,14 @@ class ShoppingCartProvider extends ServiceProvider
             $shoppingCart = ShoppingCart::findOrCreate($sessionID);
             session()->put('shopping_cart', $shoppingCart->id);
 
-            $view->with('shoppingCart', $shoppingCart);
+            $order = Order::where('shopping_cart_id', $sessionID)->get();
+
+            if ($order->isEmpty()) {
+                $view->with('shoppingCart', $shoppingCart);
+            } else {
+                session()->forget('shopping_cart');
+                $view->with('shoppingCart', new ShoppingCart);
+            }
         });
     }
 }
