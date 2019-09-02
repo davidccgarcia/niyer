@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 class ShoppingCart extends Model
 {
@@ -52,6 +53,32 @@ class ShoppingCart extends Model
     public function total()
     {
         return number_format($this->subtotal() + $this->shipping(), 3);
+    }
+
+    /**
+     * Get the number of products into shopping cart.
+     */
+    public function productsCountByID(Product $product)
+    {
+        return $this->products()
+            ->where('products.id', $product->id)
+            ->count();
+    }
+
+    /**
+     * Discount stock of the products.
+     */
+    public function discountStock()
+    {
+        $products = $this->products()->get();
+
+        foreach ($products as $product) {
+            $stock = $product->stock - $this->productsCountByID($product);
+
+            $this->products()
+                ->where('products.id', $product->id)
+                ->update(['stock' => $stock]);
+        }
     }
 
     /**

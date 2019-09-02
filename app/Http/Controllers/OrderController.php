@@ -47,6 +47,8 @@ class OrderController extends Controller
         $order->total = $shoppingCart->total();
         $order->save();
 
+        $shoppingCart->discountStock();
+
         return redirect()
             ->route('orders.show', ['order' => $order]);
     }
