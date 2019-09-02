@@ -30,6 +30,11 @@
                         <strong>Guide Number: </strong> {{ $order->guide_number }}
                     </div>
                 </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <strong>Total: </strong> $ {{ $order->total() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
