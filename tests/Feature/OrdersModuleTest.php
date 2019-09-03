@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\{Product, ShoppingCart, User};
+use App\{Order, Product, ShoppingCart, User};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class OrdersModuleTest extends TestCase
@@ -58,5 +58,33 @@ class OrdersModuleTest extends TestCase
             'status' => 'created',
             'total' => 52.00,
         ]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_display_orders()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+        $product = factory(Product::class)->create(['user_id' => $user->id]);
+
+        $sessionID = session()->get('shopping_cart');
+        $shoppingCart = ShoppingCart::findOrCreate($sessionID);
+        session()->put('shopping_cart', $shoppingCart->id);
+
+        $shoppingCart->products()->attach($product->id);
+
+        $order = factory(Order::class)->create(['shopping_cart_id' => $shoppingCart->id]);
+        $order2 = factory(Order::class)->create(['shopping_cart_id' => $shoppingCart->id]);
+
+        $this->actingAs($user)
+            ->get(route('orders.index'))
+            ->assertStatus(200)
+            ->assertSeeText('Orders')
+            ->assertViewHas('orders', function ($orders) use ($order, $order2) {
+                return $orders->contains($order) && $orders->contains($order2);
+            });
     }
 }
