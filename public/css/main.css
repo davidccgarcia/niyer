@@ -3,3 +3,15 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.order-data {
+    padding: 1em;
+    text-align: center;
+    border-right: 1px solid #222;
+}
+
+.order-data > span {
+    display: block;
+    font-size: 2.2em;
+    color: #3f51b5;
+}
