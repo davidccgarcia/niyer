@@ -65,7 +65,7 @@ class ShoppingCartsModuleTest extends TestCase
             ->post(route('cart.store'), [
                 'product_id' => $product->id,
             ])
-            ->assertRedirect(route('products.show', $product->id));
+            ->assertRedirect(route('home.index'));
 
         $sessionID = session()->get('shopping_cart');
         $shoppingCart = ShoppingCart::findOrCreate($sessionID);
