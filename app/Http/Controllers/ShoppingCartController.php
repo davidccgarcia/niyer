@@ -38,6 +38,6 @@ class ShoppingCartController extends Controller
         $shoppingCart->products()->attach($request->product_id);
 
         return redirect()
-            ->route('products.show', $request->product_id);
+            ->route('home.index');
     }
 }

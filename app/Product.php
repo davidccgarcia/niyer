@@ -13,4 +13,12 @@ class Product extends Model
     {
         return $this->belongsToMany(ShoppingCart::class);
     }
+
+    /**
+     * Get the price of the product.
+     */
+    public function price()
+    {
+        return number_format($this->price, 3);
+    }
 }
